@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"context"
+	"log"
 	"net/http"
 	"time"
 
@@ -20,6 +21,7 @@ var jwtSecret = "your_secret_key" // Replace with a secure key
 func Register(c *fiber.Ctx) error {
 	var req models.User
 	if err := c.BodyParser(&req); err != nil {
+		log.Printf("Error saving user to database: %v", err)
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request body"})
 	}
 
